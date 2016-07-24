@@ -9,8 +9,8 @@
                 iconSize: [32, 52],
                 iconAnchor: [16, 52],
                 popupAnchor: [2, -40],
-                shadowAnchor: [7, 45],
-                shadowSize: [54, 51],
+                shadowAnchor: [0, 0],
+                shadowSize: [0, 0],
                 svgShadow: true, // false - no shadow, true - default shadow skew of half-width to the right and quarter height. Setting this overrides the shadow anchor and shadow size.
                 className: "vector-marker",
                 prefix: "fa",
@@ -191,20 +191,21 @@
                 Tc = shadowOpt.skew;
                 Td = shadowOpt.scale;
                 var viewWidth = Math.round(options.svgWidth + options.svgHeight * Math.abs(shadowOpt.skew));
-                var svgWidth = Math.round(iSize.x * (1 + Math.abs(shadowOpt.skew)));
                 var viewHeight = Math.abs(options.svgHeight * shadowOpt.scale);
-                var svgHeight = iSize.y;
+                var finalSvgWidth = Math.round(iSize.x * (1 + Math.abs(shadowOpt.skew)));
+                var finalSvgHeight = Math.abs(iSize.y * shadowOpt.scale);
                 Tx = (shadowOpt.skew < 0) ? viewWidth - options.svgWidth: 0;
                 Ty = (shadowOpt.scale < 0) ? viewHeight : 0;
-                var deltaTop = options.svgHeight * Math.min(1 - shadowOpt.scale, 1);
+                var deltaTop = iSize.y * Math.min(1 - shadowOpt.scale, 1);
 
                 // Only need to set the left edge if the skew is positive.
                 // With skew positive, the SVG is not transformed to match the X-anchor point (Tx is 0)
                 // The div element offset it needed to align the point.
-                var deltaLeft = (shadowOpt.skew > 0) ? options.svgWidth - viewWidth + (Tx / 2) : 0;
+                var deltaLeft = (shadowOpt.skew > 0) ? iSize.x - finalSvgWidth : 0;
+                //deltaLeft = deltaLeft * iSize.x / options.svgWidth;
                 var matString = Ta + ',' + Tb + ',' + Tc + ',' + Td + ',' + Tx + ',' + Ty;
-                div.innerHTML = '<div class="float-container" style="left:' + deltaLeft + 'px; top:' + deltaTop + 'px">' +
-                    '<svg width="' + viewWidth + 'px" height="' + viewHeight + 'px" ' +
+                div.innerHTML = '<div class="float-container" style="position:relative; left:' + deltaLeft + 'px; top:' + deltaTop + 'px">' +
+                    '<svg width="' + finalSvgWidth + 'px" height="' + finalSvgHeight + 'px" ' +
                     'preserveAspectRatio="none" ' +
                     'viewBox="0 0 ' + viewWidth + ' ' + viewHeight + '" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                     '<g transform="matrix(' + matString + ')">' +
