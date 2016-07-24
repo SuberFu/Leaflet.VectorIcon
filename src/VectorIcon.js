@@ -29,7 +29,8 @@
                 svgFontSize: 14, // Font size assuming svg width is still 32.
             },
             initialize: function (options) {
-                //this.options = this.options;
+                options = L.Util.setOptions(this, options);
+                options = this.options;
                 if (!!options.iconSize && !options.iconAnchor) {
                     // User supplied an iconSize but not the iconAnchor.
                     options.iconAnchor = [0, 0];
@@ -37,7 +38,7 @@
                     options.iconAnchor[1] = options.iconSize[1];
                 }
                 
-                options = L.Util.setOptions(this, options);
+                
                 this._bounce();
                 return this;
             },
