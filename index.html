@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Leaflet.VectorIcon</title>
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
+  <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js"
+			  integrity="sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8="
+			  crossorigin="anonymous"></script>
+  <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>  
+  <script src="src/VectorIcon.js"></script>
+</head>
+
+<body>
+  <div id="map" style="height:200px; width:80%">
+  </div>
+</body>
+<script>
+$(function(){
+  var mymap = L.map('map').setView([50, 0], 13);
+  var marker1 = L.marker({icon:new L.VectorIcon()}).addTo(mymap);
+})
+</script>
+</html>
