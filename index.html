@@ -13,6 +13,12 @@
 			  crossorigin="anonymous"></script>
   <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>  
   <script src="src/VectorIcon.js"></script>
+  <style>
+  svg {
+    border: dotted;
+    border-width: 1px;
+  }
+  </style>
 </head>
 
 <body>
@@ -21,28 +27,32 @@
 </body>
 <script>
 $(function(){
-  var mymap = L.map('map').setView([49.99, 0], 13);
-  var markerRef1 = L.marker([50,0.01], {icon: L.divIcon({className:'ref-div-icon'})}).addTo(mymap);
-  var markerRef1 = L.marker([50.01,0], {icon: L.divIcon({className:'ref-div-icon'})}).addTo(mymap);
-  var marker1 = L.marker([50,0],{icon:new L.VectorIcon.Icon()}).addTo(mymap);
-  var marker1 = L.marker([50,0.05],{icon:new L.VectorIcon.Icon({
-    iconSize: [64, 48],
-    iconAnchor: [32, 48],
+  var baseLat = 52;
+  var mymap = L.map('map').setView([baseLat, 0], 13);
+  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(mymap);
+  var marker1 = L.marker([baseLat,0],{icon:new L.VectorIcon.Icon()}).addTo(mymap);
+  var marker1 = L.marker([baseLat,0.05],{icon:new L.VectorIcon.Icon({
+    iconSize: [30, 240],
+    iconAnchor: [15, 240],
+    svgShadow:{skew:-0.25, scale:1.0}
   })}).addTo(mymap);
-  var marker1 = L.marker([50,-0.05],{icon:new L.VectorIcon.Icon({
-    iconSize: [64, 48],
-    iconAnchor: [32, 48],
+  var marker1 = L.marker([baseLat,-0.05],{icon:new L.VectorIcon.Icon({
+    iconSize: [100, 120],
+    iconAnchor: [50, 120],
     svgShadow:{skew:0.25, scale:0.5}
   })}).addTo(mymap);
-  var marker1 = L.marker([49.98,0.05],{icon:new L.VectorIcon.Icon({
+  var marker1 = L.marker([baseLat - 0.02,0.05],{icon:new L.VectorIcon.Icon({
     iconSize: [100, 120],
     iconAnchor: [50, 120],
-    svgShadow:{skew:-0.25, scale:-0.5}
+    svgShadow:{skew:-0.50, scale:-0.5}
   })}).addTo(mymap);
-  var marker1 = L.marker([49.98,-0.05],{icon:new L.VectorIcon.Icon({
-    iconSize: [100, 120],
-    iconAnchor: [50, 120],
-    svgShadow:{skew:0.25, scale:-0.5}
+  var marker1 = L.marker([baseLat - 0.02,-0.05],{icon:new L.VectorIcon.Icon({
+    iconSize: [100, 100],
+    iconAnchor: [50, 100],
+    svgShadow:{skew:0.50, scale:-0.5}
   })}).addTo(mymap);  
 })
 </script>

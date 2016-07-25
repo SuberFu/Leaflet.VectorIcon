@@ -3,7 +3,7 @@
         "use strict";
         L.VectorIcon = {};
         L.VectorIcon.version = "1.0.0";
-        L.VectorIcon.MAP_PIN = 'M16,1 C7.7146,1 1,7.65636364 1,15.8648485 C1,24.0760606 16,51 16,51 C16,51 31,24.0760606 31,15.8648485 C31,7.65636364 24.2815,1 16,1 L16,1 Z';
+        L.VectorIcon.MAP_PIN = 'M16,52 C14,48 0,24 0,16 C0,8 8,0 16,0 C24,0 32,8 32,16 C32,24 18,48 16,52 Z';
         L.VectorIcon.Icon = L.Icon.extend({
             options: {
                 iconSize: [32, 52],
@@ -114,8 +114,10 @@
                 var iPoint = L.point(options.iconSize);
                 div.innerHTML = '<div class="float-container"><svg width="' + iPoint.x + 'px" height="' + iPoint.y + 'px" ' +
                     'preserveAspectRatio="none" '+
-                    'viewBox="0 0 ' + options.svgWidth + ' ' + options.svgHeight + '" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
-                    '<path d="' + pin_path + '" fill="' + options.markerColor + '"></path>' + icon + '</svg></div>';
+                    'viewBox="0 0 ' + options.svgWidth + ' ' + options.svgHeight + 
+                    '" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
+                    '<path d="' + pin_path + '" fill="' + options.markerColor + '"></path>' + 
+                    icon + '</svg></div>';
                 this._setIconStyles(div, "icon");
                 this._setIconStyles(div, "icon-" + options.markerColor);
                 this._iconDiv = div;
@@ -190,11 +192,11 @@
                 var Ta = 1, Tb = 0, Tc = 0, Td = 1, Tx = 0, Ty = 0; // Transformation matrix
                 Tc = shadowOpt.skew;
                 Td = shadowOpt.scale;
-                var viewWidth = Math.round(options.svgWidth + options.svgHeight * Math.abs(shadowOpt.skew));
+                var viewWidth = options.svgWidth + options.svgHeight * Math.abs(shadowOpt.skew);
                 var viewHeight = Math.abs(options.svgHeight * shadowOpt.scale);
-                var finalSvgWidth = Math.round(iSize.x * (1 + Math.abs(shadowOpt.skew)));
+                var finalSvgWidth = iSize.x * (viewWidth / options.svgWidth);
                 var finalSvgHeight = Math.abs(iSize.y * shadowOpt.scale);
-                Tx = (shadowOpt.skew < 0) ? viewWidth - options.svgWidth: 0;
+                Tx = (shadowOpt.skew < 0) ? options.svgHeight * Math.abs(shadowOpt.skew): 0;
                 Ty = (shadowOpt.scale < 0) ? viewHeight : 0;
                 var deltaTop = iSize.y * Math.min(1 - shadowOpt.scale, 1);
 
