@@ -90,7 +90,7 @@
                 height = height || 0;
                 if (!!icon) {
                     var floatIcon = icon.getElementsByClassName('float-container')[0];
-                    floatIcon.style.marginTop = -height + 'px';
+                    floatIcon.style.transform = 'translate3d(0,' + (-height).toString() + 'px, 0)';
                 }
                 if (!!shadow) {
                     var floatIcon = shadow.getElementsByClassName('float-container')[0];
@@ -98,8 +98,9 @@
                     if (typeof (shadowOpt) === 'boolean') {
                         shadowOpt = { skew: -0.25, scale: 0.5 }
                     }
-                    floatIcon.style.marginTop = -(height * shadowOpt.scale) + 'px';
-                    floatIcon.style.marginLeft = -(height * shadowOpt.skew) + 'px';
+                    var xOffset = -(height * shadowOpt.skew);
+                    var yOffset = -(height * shadowOpt.scale);
+                    floatIcon.style.transform = 'translate3d(' + xOffset + 'px,' + yOffset + 'px, 0)';
                 }
             },
             _iconDiv: null,
